@@ -2,10 +2,11 @@
 from . import db # importing from the current package directory, the website folder the db object
 from flask_login import UserMixin # module that helps login, in herite from UserMixin
 from sqlalchemy.sql import func
+from datetime import datetime
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     data = db.Column(db.String(10000))
-    date = db.Column(db.DateTime(timezone=True), default=func.now) # func current date and time
+    date = db.Column(db.DateTime(timezone=True), default=func.now()) # func current date and time -------
     # all notes must be associated with a User, set a through relationship which is carried through foreign key
     # foreign key is id of the user who created the note 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) # 1 - N relationship User class in sql is referenced through user lower case for foreign key
