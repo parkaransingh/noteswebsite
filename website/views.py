@@ -1,5 +1,5 @@
 #main views or url endpoints for front end aspect of our website
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 # this has a bunch of routes inside this file
 from .models import Note
@@ -20,6 +20,8 @@ def home():
             db.session.add(new_note)
             db.session.commit()
             flash('Note Added!', category='success')
+            # change line 24 fix for post request reload
+            return redirect(url_for('views.home'))
     return render_template("home.html", user=current_user)
 @views.route('/delete-note', methods = ['POST'])
 def delete_note():
